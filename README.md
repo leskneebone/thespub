@@ -24,16 +24,15 @@ SKOS["SKOS Ontology http://www.w3.org/2004/02/skos/core#"]
 VOC["VocPub Profile https://linked.data.gov.au/def/vocpub"]
 THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
 
-REQ["ThesPub Requirements (thespub-req.ttl)"]
-SHACL["ThesPub SHACL Shapes (thespub-shacl.ttl)"]
+REQ["ThesPub Requirements (thespub.ttl)"]
+SHACL["ThesPub SHACL Shapes (thespub/validator.ttl)"]
 
 SKOS --> VOC
 VOC --> THES
 
-THES --> REQ
 THES --> SHACL
 
-REQ <--> SHACL
+THES <--> SHACL
 ```
 
 ## Repository layout
