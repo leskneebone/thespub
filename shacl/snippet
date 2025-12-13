@@ -51,7 +51,7 @@ thespub:OnePrefLabelPerLanguage
     req:REQ_0002 thesreq:THES-01 .
 
 #################################################################
-#  3. THES-02 – definition recommended, not mandatory
+#  3. THES-02 – definition mandatory for top concept only
 #################################################################
 
 thespub:TopConceptDefinition
