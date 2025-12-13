@@ -20,6 +20,25 @@ VocPub itself, by defining an optional profile that:
 - relaxes some modelling rules, and
 - adds thesaurus-friendly recommendations.
 
+```mermaid
+graph TD
+
+SKOS["SKOS Ontology http://www.w3.org/2004/02/skos/core#"]
+VOC["VocPub Profile https://linked.data.gov.au/def/vocpub"]
+THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
+
+REQ["ThesPub Requirements (thespub-req.ttl)"]
+SHACL["ThesPub SHACL Shapes (thespub-shacl.ttl)"]
+
+SKOS --> VOC
+VOC --> THES
+
+THES --> REQ
+THES --> SHACL
+
+REQ <--> SHACL
+```
+
 ## Repository layout
 - `docs/` – discussion paper(s) for LDWG and other fora.
 - `profiles/` – PROF description of the ThesPub profile.
@@ -36,22 +55,3 @@ would help.
 
 This work is intended to complement, not replace, VocPub, and to be
 shaped collaboratively with interested communities.
-
-```mermaid
-graph TD
-
-SKOS["SKOS Ontology\nhttp://www.w3.org/2004/02/skos/core#"]
-VOC["VocPub Profile\nhttps://linked.data.gov.au/def/vocpub"]
-THES["ThesPub Profile\nhttp://test.linked.data.gov.au/def/thespub"]
-
-REQ["ThesPub Requirements\n(thespub-req.ttl)"]
-SHACL["ThesPub SHACL Shapes\n(thespub-shacl.ttl)"]
-
-SKOS --> VOC
-VOC --> THES
-
-THES --> REQ
-THES --> SHACL
-
-REQ <--> SHACL
-```
