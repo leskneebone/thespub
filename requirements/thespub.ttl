@@ -1,27 +1,34 @@
 ## 1. Minimal `thespub-req.ttl` (Requirements Register)
 
 ```ttl
+PREFIX orcid:   <https://orcid.org/>
 PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dcterms:     <http://purl.org/dc/terms/>
+PREFIX prof:    <http://www.w3.org/ns/dx/prof/> 
+PREFIX rdl:     <https://w3id.org/requirement-ontology/rdl/>
 PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
 PREFIX req:     <https://w3id.org/requirement-ontology/rdl/>
-PREFIX thespub: <http://test.linked.data.gov.au/def/thespub#>
-PREFIX thesreq: <http://test.linked.data.gov.au/def/thespub/req/>
+PREFIX thespub: <http://test.linked.data.gov.au/def/thespub>
+PREFIX thesreq: <http://test.linked.data.gov.au/def/thespub#>
+PREFIX thesval: <http://test.linked.data.gov.au/def/thespub/validator>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
+PREFIX vocpub:  <https://linked.data.gov.au/def/vocpub>
 
 #################################################################
-#  ThesPub Requirements Register (minimal starter)
+#  ThesPub Profile (minimal starter)
 #################################################################
 
-thesreq:RequirementRegister
-    a dcterms:Standard ;
-    dcterms:title "ThesPub Requirements Register (draft)"@en ;
-    dcterms:description """
-A small, illustrative register of requirements for the ThesPub profile,
-intended to demonstrate how profile requirements can be modelled as
-RDF resources and linked to SHACL constraints.
-"""@en ;
-    dcterms:creator <https://orcid.org/0000-0001-5640-3202> .
+thespub:
+    a prof:Profile ;
+    dcterms:title "ThesPub – Thesaurus-Friendly VocPub Extension Profile"@en ;
+    prof:isProfileOf vocpub: ;
+    prof:isProfileOf skos: ;
+    prof:hasResource thesval: ;
+    prof:hasToken "thespub" ;
+    dcterms:creator orcid:0000-0001-5640-3202 ;
+    dcterms:issued "2025-01-15"^^xsd:date .
+
 
 #################################################################
 #  Requirement THES-01 — One prefLabel per language
@@ -36,7 +43,7 @@ For any skos:Concept, there MUST NOT be more than one skos:prefLabel with the sa
 """@en .
 
 #################################################################
-#  Requirement THES-02 — Definition recommended, not required
+#  Requirement THES-02 — Definition required for top concepts
 #################################################################
 
 thesreq:THES-02
