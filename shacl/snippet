@@ -1,0 +1,108 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix req:     <https://w3id.org/requirement-ontology/rdl/> .
+@prefix thespub: <http://test.linked.data.gov.au/def/thespub#> .
+@prefix thesreq: <http://test.linked.data.gov.au/def/thespub/req/> .
+
+BASE <https://linked.data.gov.au/def/vocpub/validator/>
+
+#################################################################
+#  1. Override VocPub's label+definition requirement
+#################################################################
+
+# This is a NodeShape from VocPub SHACL:
+# <Requirement-2.2.1>
+#   a sh:NodeShape ;
+#   sh:targetClass skos:Concept ;
+#   sh:message "... MUST have exactly one title and at least one definition ..." ;
+#   sh:property <prefLabel> , <definition> ;
+
+# In ThesPub we deactivate it so our shapes can take over.
+
+<Requirement-2.2.1>
+    sh:deactivated true .
+
+#################################################################
+#  2. THES-01 – at most one prefLabel per language
+#################################################################
+
+thespub:OnePrefLabelPerLanguage
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "[THES-01] A concept MUST NOT have more than one skos:prefLabel per language tag."@en ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "[THES-01] Multiple skos:prefLabel values share the same language tag."@en ;
+        sh:select """
+          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+          SELECT ?this
+          WHERE {
+            ?this a skos:Concept .
+            ?this skos:prefLabel ?l1, ?l2 .
+            FILTER (lang(?l1) = lang(?l2) && str(?l1) != str(?l2))
+          }
+        """ ;
+    ] ;
+    # Link this constraint back to requirement THES-01
+    req:REQ_0002 thesreq:THES-01 .
+
+#################################################################
+#  3. THES-02 – definition recommended, not mandatory
+#################################################################
+
+thespub:TopConceptDefinition
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Violation ;
+    sh:message "[THES-02] Top concepts SHALL have a skos:definition to clarify their scope."@en ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "[THES-02] This top concept has no skos:definition; a definition is mandatory."@en ;
+        sh:select """
+          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+          SELECT ?this
+          WHERE {
+            ?this a skos:Concept .
+
+            # Only apply to 'top concepts' either:
+            #   (a) explicitly declared as top concepts, OR
+            #   (b) inferred as top-level by having no broader.
+            FILTER (
+              EXISTS { ?this skos:topConceptOf ?scheme . }
+              || EXISTS { ?scheme skos:hasTopConcept ?this . }
+              || NOT EXISTS { ?this skos:broader ?b . }
+            )
+
+            # Warn only if there is no definition
+            FILTER NOT EXISTS { ?this skos:definition ?def . }
+          }
+        """ ;
+    ] ;
+    req:REQ_0002 thesreq:THES-02 .
+
+#################################################################
+#  4. THES-03 – encourage at least one altLabel
+#################################################################
+
+thespub:AltLabelRecommended
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:severity sh:Warning ;
+    sh:message "[THES-03] Consider adding at least one skos:altLabel to expand entry to a skos:Concept."@en ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "[THES-03] Concept has no skos:altLabel; synonyms may improve usability."@en ;
+        sh:select """
+          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+          SELECT ?this
+          WHERE {
+            ?this a skos:Concept .
+            FILTER NOT EXISTS { ?this skos:altLabel ?alt . }
+          }
+        """ ;
+    ] ;
+    req:REQ_0002 thesreq:THES-03 .
