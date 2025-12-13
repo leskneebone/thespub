@@ -1,13 +1,27 @@
 PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX dct:     <http://purl.org/dc/terms/>
 PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
 PREFIX sh:      <http://www.w3.org/ns/shacl#>
 PREFIX req:     <https://w3id.org/requirement-ontology/rdl/>
 PREFIX thespub: <http://test.linked.data.gov.au/def/thespub>
 PREFIX thesreq: <http://test.linked.data.gov.au/def/thespub#>
-PREFIX thesval: <http://test.linked.data.gov.au/def/thespub/validator/>
+PREFIX thesval: <http://test.linked.data.gov.au/def/thespub/validator>
+PREFIX thesshp: <http://test.linked.data.gov.au/def/thespub/validator#>
 PREFIX vocval:  <https://linked.data.gov.au/def/vocpub/validator/>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#> 
+
+#################################################################
+#  ThesPub Validator
+#################################################################
+
+thesval:
+    a owl:Ontology , sh:ShapesGraph ;
+    schema:name "ThesPub Validator"@en ;
+    schema:definition "SHACL validator for the ThesPub Profile"@en ;
+    schema:creator <https://orcid.org/0000-0001-5640-3202> ;
+    schema:dateCreated "2025-12-13"^^xsd:date ;
+    schema:dateModified "2025-12-13"^^xsd:date ;
+.
 
 #################################################################
 #  1. Override VocPub's label+definition requirement
@@ -29,7 +43,7 @@ vocval:Requirement-2.2.1
 #  2. THES-01 – at most one prefLabel per language
 #################################################################
 
-thesval:OnePrefLabelPerLanguage
+thesshp:OnePrefLabelPerLanguage
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Violation ;
@@ -54,7 +68,7 @@ thesval:OnePrefLabelPerLanguage
 #  3. THES-02 – definition mandatory for top concept only
 #################################################################
 
-thesval:TopConceptDefinition
+thesshp:TopConceptDefinition
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Violation ;
@@ -91,7 +105,7 @@ thesval:TopConceptDefinition
 #  4. THES-03 – encourage at least one altLabel
 #################################################################
 
-thesval:AltLabelRecommended
+thesshp:AltLabelRecommended
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Warning ;
