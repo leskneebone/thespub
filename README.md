@@ -38,9 +38,7 @@ REQ <--> SHACL
 
 ## Repository layout
 - `docs/` – discussion paper(s) for LDWG and other fora.
-- `profiles/` – PROF description of the ThesPub profile.
-- `requirements/` – machine-readable requirements register
-(e.g., THES-01, THES-02, THES-03…).
+- `profiles/` – PROF description of the ThesPub profile and machine-readable requirements (e.g., THES-01, THES-02, THES-03…).
 - `shacl/` – SHACL shapes that implement the requirements.
 - `examples/` – small SKOS vocabularies for testing.
 
