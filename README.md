@@ -1,9 +1,7 @@
 # ThesPub – Thesaurus-Friendly Extension to VocPub (Draft)
 
 ## Status
-This repository is an **early-stage discussion space** for a possible
-thesaurus-oriented extension profile building on VocPub and SKOS.
-Nothing here is final; everything is open for change.
+This repository is an **early-stage discussion space** for a possible thesaurus-oriented extension profile building on VocPub and SKOS. Nothing here is final; everything is open for change. This work benefited from exploratory use of generative AI tools during drafting. Responsibility for content rests entirely with the authors.
 
 ## Motivation
 - VocPub works very well for small, flat, domain vocabularies.
@@ -13,8 +11,7 @@ multilingual labels) sometimes bump into limitations such as:
 - mandatory `skos:definition`
 - limited or no treatment of `skos:altLabel` and `skos:related` patterns.
 
-ThesPub explores ways to support those use cases **without changing**
-VocPub itself, by defining an optional profile that:
+ThesPub explores ways to support those use cases **without changing** VocPub itself, by defining an optional profile that:
 - profiles both SKOS and VocPub using W3C PROF,
 - reuses VocPub's publishing constraints,
 - relaxes some modelling rules, and
