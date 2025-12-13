@@ -1,13 +1,13 @@
 ## 1. Minimal `thespub-req.ttl` (Requirements Register)
 
 ```ttl
-@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix dct:     <http://purl.org/dc/terms/> .
-@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
-@prefix req:     <https://w3id.org/requirement-ontology/rdl/> .
-@prefix thespub: <http://test.linked.data.gov.au/def/thespub#> .
-@prefix thesreq: <http://test.linked.data.gov.au/def/thespub/req/> .
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct:     <http://purl.org/dc/terms/>
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
+PREFIX req:     <https://w3id.org/requirement-ontology/rdl/>
+PREFIX thespub: <http://test.linked.data.gov.au/def/thespub#>
+PREFIX thesreq: <http://test.linked.data.gov.au/def/thespub/req/>
 
 #################################################################
 #  ThesPub Requirements Register (minimal starter)
