@@ -36,3 +36,21 @@ would help.
 
 This work is intended to complement, not replace, VocPub, and to be
 shaped collaboratively with interested communities.
+
+
+graph TD
+
+SKOS["SKOS Ontology\nhttp://www.w3.org/2004/02/skos/core#"]
+VOC["VocPub Profile\nhttps://linked.data.gov.au/def/vocpub"]
+THES["ThesPub Profile\nhttp://test.linked.data.gov.au/def/thespub"]
+
+REQ["ThesPub Requirements\n(thespub-req.ttl)"]
+SHACL["ThesPub SHACL Shapes\n(thespub-shacl.ttl)"]
+
+SKOS --> VOC
+VOC --> THES
+
+THES --> REQ
+THES --> SHACL
+
+REQ <--> SHACL
