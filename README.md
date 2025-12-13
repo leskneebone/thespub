@@ -37,7 +37,7 @@ would help.
 This work is intended to complement, not replace, VocPub, and to be
 shaped collaboratively with interested communities.
 
-
+```mermaid
 graph TD
 
 SKOS["SKOS Ontology\nhttp://www.w3.org/2004/02/skos/core#"]
@@ -54,3 +54,4 @@ THES --> REQ
 THES --> SHACL
 
 REQ <--> SHACL
+```
