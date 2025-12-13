@@ -50,22 +50,14 @@ thesshp:OnePrefLabelPerLanguage
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Violation ;
-    sh:message "[THES-01] A concept MUST NOT have more than one skos:prefLabel per language tag."@en ;
-    sh:sparql [
-        a sh:SPARQLConstraint ;
-        sh:message "[THES-01] Multiple skos:prefLabel values share the same language tag."@en ;
-        sh:select """
-          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-          SELECT ?this
-          WHERE {
-            ?this a skos:Concept .
-            ?this skos:prefLabel ?l1, ?l2 .
-            FILTER (lang(?l1) = lang(?l2) && str(?l1) != str(?l2))
-          }
-        """ ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:uniqueLang true ;
+        sh:message "[THES-01] A concept MUST NOT have more than one skos:prefLabel per language tag."@en ;
     ] ;
-    # Link this constraint back to requirement THES-01
-    req:REQ_0002 thesreq:THES-01 .
+
+    thespub:implements thesreq:THES-01 .
 
 #################################################################
 #  3. THES-02 – definition mandatory for top concept only
@@ -75,34 +67,19 @@ thesshp:TopConceptDefinition
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Violation ;
-    sh:message "[THES-02] Top concepts SHALL have a skos:definition to clarify their scope."@en ;
-    sh:sparql [
-        a sh:SPARQLConstraint ;
-        sh:message "[THES-02] This top concept has no skos:definition; a definition is mandatory."@en ;
-        sh:select """
-          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-          SELECT ?this
-          WHERE {
-            ?this a skos:Concept .
 
-            # Apply to 'top concepts' either:
-            #   (a) explicitly declared as top concepts, OR
-            #   (b) inferred as top-level within a scheme by having no broader.
-            FILTER (
-              EXISTS { ?this skos:topConceptOf ?scheme . }
-              || EXISTS { ?scheme skos:hasTopConcept ?this . }
-              || (
-                   EXISTS { ?this skos:inScheme ?scheme . }
-                   && NOT EXISTS { ?this skos:broader ?b . }
-                 )
-            )
-
-            # Trigger only if there is no definition
-            FILTER NOT EXISTS { ?this skos:definition ?def . }
-          }
-        """ ;
+    sh:property [
+        sh:path skos:topConceptOf ;
+        sh:minCount 1 ;
+        sh:qualifiedValueShape [
+            sh:path skos:definition ;
+            sh:minCount 1 ;
+        ] ;
+        sh:message "[THES-02] Top concepts MUST have a skos:definition."@en ;
     ] ;
-    req:REQ_0002 thesreq:THES-02 .
+
+    thespub:implements thesreq:THES-02 .
+
 
 #################################################################
 #  4. THES-03 – encourage at least one altLabel
@@ -112,17 +89,11 @@ thesshp:AltLabelRecommended
     a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:severity sh:Warning ;
-    sh:message "[THES-03] Consider adding at least one skos:altLabel to expand entry to a skos:Concept."@en ;
-    sh:sparql [
-        a sh:SPARQLConstraint ;
-        sh:message "[THES-03] Concept has no skos:altLabel; synonyms may improve usability."@en ;
-        sh:select """
-          PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-          SELECT ?this
-          WHERE {
-            ?this a skos:Concept .
-            FILTER NOT EXISTS { ?this skos:altLabel ?alt . }
-          }
-        """ ;
+
+    sh:property [
+        sh:path skos:altLabel ;
+        sh:minCount 1 ;
+        sh:message "[THES-03] Consider adding at least one skos:altLabel; synonyms may improve usability."@en ;
     ] ;
-    req:REQ_0002 thesreq:THES-03 .
+
+    thespub:implements thesreq:THES-03 .
