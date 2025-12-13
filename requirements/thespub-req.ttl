@@ -1,0 +1,292 @@
+# ThesPub Profile & PROF Setup
+
+Working assumption: ThesPub will be identified at a test/staging URI like:
+
+* **Profile IRI**: `http://test.linked.data.gov.au/def/thespub`
+* Prefix in examples: `thespub:`
+
+(You can later migrate from `test.linked.data.gov.au` to a production URI as needed; the pattern and structure will remain the same.)
+
+---
+
+## 1. ThesPub as a PROF Profile
+
+ThesPub should be described as a `prof:Profile` that profiles **both**:
+
+* VocPub (the existing vocabulary publication profile), and
+* SKOS (the underlying concept/labels ontology).
+
+Correct usage of `prof:isProfileOf`:
+
+```ttl
+@prefix prof:   <http://www.w3.org/ns/dx/prof/> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix thespub: <http://test.linked.data.gov.au/def/thespub#> .
+
+thespub:ThesPub
+    a prof:Profile ;
+    dct:title "ThesPub – Thesaurus-Friendly VocPub Extension Profile"@en ;
+    prof:isProfileOf <https://linked.data.gov.au/def/vocpub> ;
+    prof:isProfileOf <http://www.w3.org/2004/02/skos/core#> ;
+    prof:hasToken "thespub" ;
+    dct:publisher <https://kurrawong.ai/> ;
+    dct:issued "2025-01-15"^^xsd:date .
+```
+
+Notes:
+
+* `https://linked.data.gov.au/def/vocpub` is the canonical IRI for VocPub.
+* `http://www.w3.org/2004/02/skos/core#` identifies the SKOS core ontology as a whole, not just a single class.
+* `prof:isProfileOf` should always point to **ontologies / vocabularies / standards**, not individual classes.
+
+---
+
+## 2. Resource Descriptors for ThesPub Artifacts
+
+ThesPub will have at least two key artifacts:
+
+1. A SHACL shapes file (constraints/validation).
+2. A requirements file (requirement IRIs and metadata), potentially reusing an external requirements ontology.
+
+Example using `prof:ResourceDescriptor`:
+
+```ttl
+@prefix role: <http://www.w3.org/ns/dx/prof/role/> .
+
+thespub:ThesPub
+    prof:hasResource thespub:ThesPubShacl ;
+    prof:hasResource thespub:ThesPubRequirements .
+
+thespub:ThesPubShacl
+    a prof:ResourceDescriptor ;
+    dct:title "ThesPub SHACL Constraints"@en ;
+    dct:format <https://w3id.org/mediatype/text/turtle> ;
+    dct:conformsTo <http://www.w3.org/ns/shacl#> ;
+    prof:hasRole role:constraints ;
+    prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/shapes/thespub-shacl.ttl> .
+
+thespub:ThesPubRequirements
+    a prof:ResourceDescriptor ;
+    dct:title "ThesPub Requirements Register"@en ;
+    dct:format <https://w3id.org/mediatype/text/turtle> ;
+    prof:hasRole role:requirements ;
+    prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/requirements/thespub-req.ttl> .
+```
+
+This mirrors the way profiles like IDN-CP describe their DCAT extensions: the profile is a node, and each artifact (SHACL, docs, examples, requirement register) is a `prof:ResourceDescriptor` with a role.
+
+---
+
+## 3. Relationship to VocPub and SKOS
+
+ThesPub is intended to:
+
+* **Extend VocPub**:
+
+  * Retain VocPub's publishing and provenance constraints.
+  * Override or relax a small number of modelling constraints (e.g., global single prefLabel; mandatory definitions).
+  * Add explicit recognition of `skos:related`, and more thesaurus-friendly expectations around `altLabel`, `broader`, etc.
+
+* **Constrain SKOS usage** for thesaurus-style vocabularies:
+
+  * E.g., "one prefLabel per language tag", rather than "one prefLabel globally".
+  * Treat `skos:definition` as recommended rather than strictly required.
+
+By declaring both:
+
+```ttl
+prof:isProfileOf <https://linked.data.gov.au/def/vocpub> ;
+prof:isProfileOf <http://www.w3.org/2004/02/skos/core#> ;
+```
+
+ThesPub clearly communicates to the Australian Linked Data Working Group and tools that:
+
+* It builds **on top of** VocPub, not against it.
+* It is **a way of using SKOS**, not a replacement for SKOS.
+
+---
+
+## 4. On naming: `thespub`, `ThesPub`, etc.
+
+For URIs and tokens, a consistent all-lowercase form is usually easiest:
+
+* Profile URI: `http://test.linked.data.gov.au/def/thespub`
+* Token: `"thespub"`
+* Prefix: `thespub:`
+
+Human-readable labels and titles can use `ThesPub` (camelcase) if you like:
+
+* `rdfs:label "ThesPub – Thesaurus-Friendly VocPub Extension Profile"@en`.
+
+This keeps:
+
+* URIs simple and conventional.
+* Branding still visible in prose and UI.
+
+---
+
+These notes are meant as a starting point for your GitHub repo and discussion paper: they show how to anchor ThesPub cleanly in PROF, VocPub, and SKOS, without over-committing to implementation details yet.
+
+# Minimal `thespub-req.ttl` and Discussion Paper Draft
+
+## 1. Minimal `thespub-req.ttl` (Requirements Register)
+
+```ttl
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix req:     <https://w3id.org/requirement-ontology/rdl/> .
+@prefix thespub: <http://test.linked.data.gov.au/def/thespub#> .
+@prefix thesreq: <http://test.linked.data.gov.au/def/thespub/req/> .
+
+#################################################################
+#  ThesPub Requirements Register (minimal starter)
+#################################################################
+
+thesreq:RequirementRegister
+    a dct:Standard ;
+    dct:title "ThesPub Requirements Register (draft)"@en ;
+    dct:description """
+A small, illustrative register of requirements for the ThesPub profile,
+intended to demonstrate how profile requirements can be modelled as
+first-class RDF resources and linked to SHACL constraints.
+"""@en ;
+    dct:publisher <https://kurrawong.ai/> .
+
+#################################################################
+#  Requirement THES-01 — One prefLabel per language
+#################################################################
+
+thesreq:THES-01
+    a req:REQ_0011 ;  # Requirement
+    skos:notation "THES-01" ;
+    rdfs:label "At most one skos:prefLabel per language tag per concept"@en ;
+    dct:description """
+For any skos:Concept, there MUST NOT be more than one skos:prefLabel
+with the same language tag. This allows multilingual preferred labels
+(one per language) while preventing conflicting preferred labels within
+a single language.
+"""@en .
+
+#################################################################
+#  Requirement THES-02 — Definition recommended, not required
+#################################################################
+
+thesreq:THES-02
+    a req:REQ_0011 ;  # Requirement
+    skos:notation "THES-02" ;
+    rdfs:label "skos:definition is recommended but not mandatory"@en ;
+    dct:description """
+For thesaurus-style vocabularies, a skos:definition SHOULD be provided
+for each skos:Concept where it adds clarity, but the absence of a
+definition MUST NOT be treated as a validation error. Meaning may be
+conveyed primarily via semantic relationships and placement in the
+concept network.
+"""@en .
+
+#################################################################
+#  Requirement THES-03 — Consider at least one altLabel
+#################################################################
+
+thesreq:THES-03
+    a req:REQ_0011 ;  # Requirement
+    skos:notation "THES-03" ;
+    rdfs:label "Consider at least one skos:altLabel per concept"@en ;
+    dct:description """
+For user-facing thesauri, each skos:Concept SHOULD have at least one
+skos:altLabel where appropriate, to support entry vocabulary and
+synonym search. This is a recommendation, not a strict constraint,
+and may be relaxed for very technical or tightly-controlled vocabularies.
+"""@en .
+```
+
+---
+
+## 2. Discussion Paper Draft for LDWG
+
+### **Working title:**
+
+**Exploring a Thesaurus-Oriented Extension to VocPub**
+*A discussion paper for the Australian Linked Data Working Group*
+
+### **1. Background**
+
+VocPub (`https://linked.data.gov.au/def/vocpub`) has become a dependable Australian-government profile for publishing SKOS vocabularies, emphasising:
+
+* Provenance and ownership
+* Publishing conventions
+* Simplicity for small, flat code lists
+
+However, emerging thesaurus-style use cases need:
+
+* multilingual preferred terms,
+* deeper hierarchies,
+* associative relations,
+* and more flexible modelling.
+
+### **2. Observed limitations for thesaurus users**
+
+* **Global single `skos:prefLabel`** makes multilingual preferred labels impossible.
+* **Mandatory `skos:definition`** doesn’t reflect real thesaurus practice.
+* **Limited treatment of `skos:altLabel`** and omission of `skos:related`.
+
+These are not flaws in VocPub — simply indications that *not all SKOS use cases fit the same mould*.
+
+### **3. Proposed direction: ThesPub**
+
+ThesPub would:
+
+* **Profile both SKOS and VocPub** using W3C PROF.
+* **Reuse** VocPub's publishing and provenance constraints.
+* **Relax** certain modelling rules.
+* **Add** gentle thesaurus-good-practice recommendations.
+
+Candidate IRI: `http://test.linked.data.gov.au/def/thespub`.
+
+Core PROF declaration:
+
+```ttl
+prof:isProfileOf <https://linked.data.gov.au/def/vocpub> ;
+prof:isProfileOf <http://www.w3.org/2004/02/skos/core#> ;
+```
+
+### **4. Requirements as first-class RDF resources**
+
+ThesPub could pioneer:
+
+* Requirement IRIs (`thesreq:THES-01` etc.)
+* A small requirement register file
+* SHACL shapes that reference these IRIs via `req:fromProvision`
+
+This aligns with modern approaches to machine-readable specification design.
+
+### **5. Illustrative (not final) requirement changes**
+
+* **THES-01:** One prefLabel per language (instead of globally).
+* **THES-02:** Definition recommended, not required.
+* **THES-03:** Encourage altLabels where appropriate.
+
+These demonstrate the *kind* of refinements ThesPub might introduce.
+
+### **6. Questions for LDWG**
+
+1. Is there appetite for an optional thesaurus-oriented profile?
+2. Should constraints be modified in VocPub itself or split into a new profile?
+3. Is a requirements register useful to others?
+4. What level of formalisation is appropriate at this stage?
+
+### **7. Proposed next steps**
+
+* Establish a small GitHub repo containing:
+
+  * This discussion paper
+  * Minimal requirements file
+  * Minimal SHACL example
+
+* Invite LDWG input early so the profile emerges collaboratively.
+
+---
+
+(End of inserted content.)
