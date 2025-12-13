@@ -68,16 +68,19 @@ thespub:TopConceptDefinition
           WHERE {
             ?this a skos:Concept .
 
-            # Only apply to 'top concepts' either:
+            # Apply to 'top concepts' either:
             #   (a) explicitly declared as top concepts, OR
-            #   (b) inferred as top-level by having no broader.
+            #   (b) inferred as top-level within a scheme by having no broader.
             FILTER (
               EXISTS { ?this skos:topConceptOf ?scheme . }
               || EXISTS { ?scheme skos:hasTopConcept ?this . }
-              || NOT EXISTS { ?this skos:broader ?b . }
+              || (
+                   EXISTS { ?this skos:inScheme ?scheme . }
+                   && NOT EXISTS { ?this skos:broader ?b . }
+                 )
             )
 
-            # Warn only if there is no definition
+            # Trigger only if there is no definition
             FILTER NOT EXISTS { ?this skos:definition ?def . }
           }
         """ ;
