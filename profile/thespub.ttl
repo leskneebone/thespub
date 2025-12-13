@@ -1,6 +1,5 @@
 ## 1. Minimal `thespub-req.ttl` (Requirements Register)
 
-```ttl
 PREFIX orcid:   <https://orcid.org/>
 PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
@@ -66,6 +65,4 @@ thesreq:THES-03
     dcterms:description """
 For user-facing thesauri, each skos:Concept SHOULD have at least one skos:altLabel where appropriate, to support entry vocabulary and synonym search. This is a recommendation, not a strict constraint, and may be relaxed for very technical or tightly-controlled code lists.
 """@en .
-```
 
----
