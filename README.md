@@ -23,8 +23,6 @@ graph TD
 SKOS["SKOS Ontology http://www.w3.org/2004/02/skos/core#"]
 VOC["VocPub Profile https://linked.data.gov.au/def/vocpub"]
 THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
-
-REQ["ThesPub Requirements (thespub.ttl)"]
 SHACL["ThesPub SHACL Shapes (thespub/validator.ttl)"]
 
 SKOS --> VOC
