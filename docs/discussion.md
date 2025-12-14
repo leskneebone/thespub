@@ -18,6 +18,7 @@ However, thesaurus-style use cases need:
 * multilingual preferred terms,
 * relaxed requirements for concepts in deeper hierarchies,
 * guideance for associative relations,
+* permit supporting auxillary concept schemes withn a vocabulary
 * and more flexible modelling.
 
 ### **2. Observed limitations for thesaurus users**
@@ -80,7 +81,3 @@ These demonstrate the *kind* of refinements ThesPub might introduce.
   * Minimal SHACL example
 
 * input is invited early so the profile emerges collaboratively.
-
----
-
-(End of inserted content.)
