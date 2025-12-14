@@ -2,8 +2,10 @@
 
 Working assumption: ThesPub will be identified at a test/staging URI like:
 
-* **Profile IRI**: `http://test.linked.data.gov.au/def/thespub`
-* Prefix in examples: `thespub:`
+PREFIX thespub: `http://test.linked.data.gov.au/def/thespub` **Profile IRI**
+PREFIX thesreq: `http://test.linked.data.gov.au/def/thespub#` **Requirement IRI**
+PREFIX thesval: `http://test.linked.data.gov.au/def/thespub/validator` **Validator IRI**
+PREFIX thesshp: `http://test.linked.data.gov.au/def/thespub/validator#` **SHACL Shape IRI**
 
 ---
 
@@ -45,10 +47,10 @@ Example using `prof:ResourceDescriptor`:
 @prefix role: <http://www.w3.org/ns/dx/prof/role/> .
 
 thespub:ThesPub
-    prof:hasResource thespub:ThesPubShacl ;
-    prof:hasResource thespub:ThesPubRequirements .
+    prof:hasResource thesval: ;
+    prof:hasResource thesreq: .
 
-thespub:ThesPubShacl
+thesval:
     a prof:ResourceDescriptor ;
     dct:title "ThesPub SHACL Constraints"@en ;
     dct:format <https://w3id.org/mediatype/text/turtle> ;
@@ -56,12 +58,12 @@ thespub:ThesPubShacl
     prof:hasRole role:constraints ;
     prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/shapes/thespub-shacl.ttl> .
 
-thespub:ThesPubRequirements
+thesreq:
     a prof:ResourceDescriptor ;
     dct:title "ThesPub Requirements Register"@en ;
     dct:format <https://w3id.org/mediatype/text/turtle> ;
     prof:hasRole role:requirements ;
-    prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/requirements/thespub-req.ttl> .
+    prof:hasArtifact thesreq:thesreq.ttl . # check this!
 ```
 
 ---
@@ -83,4 +85,3 @@ ThesPub is intended to:
 
 ---
 
-\
