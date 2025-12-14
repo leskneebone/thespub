@@ -17,19 +17,19 @@ ThesPub should be described as a `prof:Profile` that profiles **both**:
 * SKOS (the underlying concept/labels ontology).
 
 ```ttl
-@prefix prof:   <http://www.w3.org/ns/dx/prof/> .
-@prefix dct:    <http://purl.org/dc/terms/> .
-@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
-@prefix thespub: <http://test.linked.data.gov.au/def/thespub#> .
+PREFIX prof:   <http://www.w3.org/ns/dx/prof/>
+PREFIX dcterms:    <http://purl.org/dc/terms/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX thespub: <http://test.linked.data.gov.au/def/thespub#>
 
 thespub:ThesPub
     a prof:Profile ;
-    dct:title "ThesPub – Thesaurus-Friendly VocPub Extension Profile"@en ;
+    dcterms:title "ThesPub – Thesaurus-Friendly VocPub Extension Profile"@en ;
     prof:isProfileOf <https://linked.data.gov.au/def/vocpub> ;
     prof:isProfileOf <http://www.w3.org/2004/02/skos/core#> ;
     prof:hasToken "thespub" ;
-    dct:publisher <https://kurrawong.ai/> ;
-    dct:issued "2025-01-15"^^xsd:date .
+    dcterms:publisher <https://kurrawong.ai/> ;
+    dcterms:issued "2099-01-15"^^xsd:date .
 ```
 
 ---
@@ -52,16 +52,16 @@ thespub:ThesPub
 
 thesval:
     a prof:ResourceDescriptor ;
-    dct:title "ThesPub SHACL Constraints"@en ;
-    dct:format <https://w3id.org/mediatype/text/turtle> ;
-    dct:conformsTo <http://www.w3.org/ns/shacl#> ;
+    dcterms:title "ThesPub SHACL Constraints"@en ;
+    dcterms:format <https://w3id.org/mediatype/text/turtle> ;
+    dcterms:conformsTo <http://www.w3.org/ns/shacl#> ;
     prof:hasRole role:constraints ;
     prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/shapes/thespub-shacl.ttl> .
 
 thesreq:
     a prof:ResourceDescriptor ;
-    dct:title "ThesPub Requirements Register"@en ;
-    dct:format <https://w3id.org/mediatype/text/turtle> ;
+    dcterms:title "ThesPub Requirements Register"@en ;
+    dcterms:format <https://w3id.org/mediatype/text/turtle> ;
     prof:hasRole role:requirements ;
     prof:hasArtifact thesreq:thesreq.ttl . # check this!
 ```
