@@ -2,10 +2,10 @@
 
 Working assumption: ThesPub will be identified at a test/staging URI like:
 
-PREFIX thespub: `http://test.linked.data.gov.au/def/thespub` **Profile IRI**
-PREFIX thesreq: `http://test.linked.data.gov.au/def/thespub#` **Requirement IRI**
-PREFIX thesval: `http://test.linked.data.gov.au/def/thespub/validator` **Validator IRI**
-PREFIX thesshp: `http://test.linked.data.gov.au/def/thespub/validator#` **SHACL Shape IRI**
+> PREFIX thespub: `http://test.linked.data.gov.au/def/thespub` **Profile IRI**
+> PREFIX thesreq: `http://test.linked.data.gov.au/def/thespub#` **Requirement IRI**
+> PREFIX thesval: `http://test.linked.data.gov.au/def/thespub/validator` **Validator IRI**
+> PREFIX thesshp: `http://test.linked.data.gov.au/def/thespub/validator#` **SHACL Shape IRI**
 
 ---
 
