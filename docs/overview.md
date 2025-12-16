@@ -44,7 +44,16 @@ ThesPub will have at least two key artifacts:
 Example using `prof:ResourceDescriptor`:
 
 ```ttl
-@prefix role: <http://www.w3.org/ns/dx/prof/role/> .
+PREFIX dcterms:    <http://purl.org/dc/terms/>
+PREFIX prof:       <http://www.w3.org/ns/dx/prof/>
+PREFIX role:       <http://www.w3.org/ns/dx/prof/role/>
+PREFIX shacl:      <http://www.w3.org/ns/shacl#> .
+PREFIX thespub:    <http://test.linked.data.gov.au/def/thespub>
+PREFIX thesreq:    <http://test.linked.data.gov.au/def/thespub#>
+PREFIX thesval:    <http://test.linked.data.gov.au/def/thespub/validator>
+PREFIX thesshp:    <http://test.linked.data.gov.au/def/thespub/validator#>
+PREFIX turtle:     <https://www.w3.org/ns/iana/media-types/text/turtle>
+PREFIX xsd:        <http://www.w3.org/2001/XMLSchema#>
 
 thespub:ThesPub
     prof:hasResource thesval: ;
@@ -53,15 +62,15 @@ thespub:ThesPub
 thesval:
     a prof:ResourceDescriptor ;
     dcterms:title "ThesPub SHACL Constraints"@en ;
-    dcterms:format <https://w3id.org/mediatype/text/turtle> ;
-    dcterms:conformsTo <http://www.w3.org/ns/shacl#> ;
+    dcterms:format turtle: ;
+    dcterms:conformsTo shacl: ;
     prof:hasRole role:constraints ;
-    prof:hasArtifact <http://test.linked.data.gov.au/def/thespub/shapes/thespub-shacl.ttl> .
+    prof:hasArtifact thesval:thesval.ttl: . # check this!
 
 thesreq:
     a prof:ResourceDescriptor ;
     dcterms:title "ThesPub Requirements Register"@en ;
-    dcterms:format <https://w3id.org/mediatype/text/turtle> ;
+    dcterms:format :turtle ;
     prof:hasRole role:requirements ;
     prof:hasArtifact thesreq:thesreq.ttl . # check this!
 ```
