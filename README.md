@@ -12,9 +12,9 @@ multilingual labels) sometimes bump into limitations such as:
 - limited or no treatment of `skos:altLabel` and `skos:related` patterns.
 
 ThesPub explores ways to support those use cases **without changing** VocPub itself, by defining an optional profile that:
-- profiles both SKOS and VocPub using W3C PROF,
+- is a profile of SKOS using W3C PROF,
 - reuses VocPub's publishing constraints,
-- relaxes some modelling rules, and
+- relaxes some VocPub modelling rules, and
 - adds thesaurus-friendly recommendations.
 
 ```mermaid
@@ -23,7 +23,7 @@ graph TD
 SKOS["SKOS Ontology http://www.w3.org/2004/02/skos/core#"]
 VOC["VocPub Profile https://linked.data.gov.au/def/vocpub"]
 THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
-SHACL["ThesPub SHACL Shapes (thespub/validator.ttl)"]
+SHACL["ThesPub SHACL Shapes http://test.linked.data.gov.au/def/thespub/validator"]
 
 SKOS --> VOC
 VOC --> THES
