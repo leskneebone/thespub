@@ -32,6 +32,14 @@ THES --> SHACL
 
 ```
 
+```mermaid
+flowchart LR
+  ThesPub -->|prof:isProfileOf| SKOS
+  ThesPub -.->|reuses shapes from| VocPub
+  ThesPub -->|owl:imports| ThesPubValidator
+  VocPub -->|prof:hasResource| VocPubValidator
+```
+
 ## Repository layout
 - `docs/` – discussion paper(s) for LDWG and other fora.
 - `profiles/` – PROF description of the ThesPub profile and machine-readable requirements (e.g., THES-01, THES-02, THES-03…).
