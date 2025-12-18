@@ -38,6 +38,7 @@ flowchart LR
   VocPub -->|prof:isProfileOf| SKOS
   ThesPub -.->|owl:imports| VocPub
   VocPub -->|prof:hasResource| VocPubValidator
+  ThesPub -->|prof:hasResource| ThesPubValidator
 ```
 
 ## Repository layout
