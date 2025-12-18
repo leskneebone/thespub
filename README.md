@@ -30,7 +30,6 @@ SKOS --> THES
 THES --> VOC
 THES --> SHACL
 
-THES <--> SHACL
 ```
 
 ## Repository layout
