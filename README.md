@@ -26,7 +26,7 @@ THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
 SHACL["ThesPub SHACL Shapes http://test.linked.data.gov.au/def/thespub/validator"]
 
 SKOS --> VOC
-VOC --> THES
+SKOS --> THES
 
 THES --> SHACL
 
