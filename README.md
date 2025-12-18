@@ -18,21 +18,6 @@ ThesPub explores ways to support those use cases **without changing** VocPub its
 - adds thesaurus-friendly recommendations.
 
 ```mermaid
-graph TD
-
-SKOS["SKOS Ontology http://www.w3.org/2004/02/skos/core#"]
-VOC["VocPub Profile https://linked.data.gov.au/def/vocpub"]
-THES["ThesPub Profile http://test.linked.data.gov.au/def/thespub"]
-SHACL["ThesPub SHACL Shapes http://test.linked.data.gov.au/def/thespub/validator"]
-
-SKOS --> VOC
-SKOS --> THES
-THES --> VOC
-THES --> SHACL
-
-```
-
-```mermaid
 flowchart LR
   ThesPub -->|prof:isProfileOf| SKOS
   VocPub -->|prof:isProfileOf| SKOS
