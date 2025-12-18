@@ -35,8 +35,8 @@ THES --> SHACL
 ```mermaid
 flowchart LR
   ThesPub -->|prof:isProfileOf| SKOS
-  ThesPub -.->|reuses shapes from| VocPub
-  ThesPub -->|owl:imports| ThesPubValidator
+  VocPub -->|prof:isProfileOf| SKOS
+  ThesPub -.->|owl:imports| VocPub
   VocPub -->|prof:hasResource| VocPubValidator
 ```
 
