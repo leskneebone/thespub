@@ -19,9 +19,8 @@ However, thesaurus-style use cases need:
 
 ## Literature reivew
 
-https://www.dublincore.org/specifications/skos-thes/ns/
-https://github.com/cmader/qSKOS/
-
+- https://www.dublincore.org/specifications/skos-thes/ns/
+- https://github.com/cmader/qSKOS/
 
 ## Observed limitations for thesaurus users
 
