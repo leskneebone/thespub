@@ -1,11 +1,7 @@
-## 2. Discussion Paper
-
-### **ThesPub - a thesaurus-friendly extension to VocPUb**
-
-**Exploring a Thesaurus-Oriented Extension to VocPub**
+# Discussion Paper: ThesPub - a thesaurus-friendly extension to VocPUb. Exploring a Thesaurus-Oriented Extension to VocPub
 *A discussion paper for the Australian Linked Data Working Group*
 
-### **1. Background**
+## Background
 
 VocPub (`https://linked.data.gov.au/def/vocpub`) has become a dependable Australian-government profile for publishing SKOS vocabularies, emphasising:
 
@@ -21,7 +17,13 @@ However, thesaurus-style use cases need:
 * permit supporting auxillary concept schemes withn a vocabulary
 * and more flexible modelling.
 
-### **2. Observed limitations for thesaurus users**
+## Literature reivew
+
+https://www.dublincore.org/specifications/skos-thes/ns/
+https://github.com/cmader/qSKOS/
+
+
+## Observed limitations for thesaurus users
 
 * **Global single `skos:prefLabel`** makes multilingual preferred labels impractical.
 * **Mandatory `skos:definition`** doesn’t reflect real thesaurus practice.
@@ -29,7 +31,7 @@ However, thesaurus-style use cases need:
 
 These are not flaws in VocPub — simply indications that *not all SKOS use cases fit the same mould*.
 
-### **3. Proposed direction: ThesPub**
+### Proposed direction: ThesPub
 
 ThesPub would:
 
@@ -47,7 +49,7 @@ prof:isProfileOf <https://linked.data.gov.au/def/vocpub> ;
 prof:isProfileOf <http://www.w3.org/2004/02/skos/core#> ;
 ```
 
-### **4. Requirements as RDF resources**
+## Requirements as RDF resources
 
 ThesPub could pioneer:
 
@@ -57,7 +59,7 @@ ThesPub could pioneer:
 
 This aligns with modern approaches to machine-readable specification design.
 
-### **5. Illustrative (not final) requirement changes**
+## Illustrative (not final) requirement changes**
 
 * **THES-01:** One prefLabel per language (instead of globally).
 * **THES-02:** Definition recommended, not required.
@@ -65,14 +67,14 @@ This aligns with modern approaches to machine-readable specification design.
 
 These demonstrate the *kind* of refinements ThesPub might introduce.
 
-### **6. Questions for discussion**
+## Questions for discussion
 
 1. Is there appetite for an optional thesaurus-oriented profile?
 2. Should constraints be modified in VocPub itself or split into a new profile?
 3. Is a requirements register useful to others?
 4. What level of formalisation is appropriate at this stage?
 
-### **7. Next steps**
+## Next steps
 
 * A small GitHub repo exiats containing:
 
