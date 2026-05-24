@@ -1,7 +1,7 @@
-# ThesPub – Thesaurus-Friendly Extension to VocPub (Draft)
+# ThesPub – Thesaurus-Friendly Validation (Draft)
 
 ## Status
-This repository is an **early-stage discussion space** for a possible thesaurus-oriented extension profile building on VocPub and SKOS. Nothing here is final; everything is open for change. This work benefited from exploratory use of generative AI tools during drafting. Responsibility for content rests entirely with the authors.
+This repository is an **early-stage discussion space** for a possible thesaurus-oriented profile building on SKOS, SKOS-like profiles and best practice in thesaurus construction. Nothing here is final; everything is open for change. This work benefited from exploratory use of generative AI tools during drafting. Responsibility for content rests entirely with the authors.
 
 ## Motivation
 - VocPub works very well for small, flat, domain vocabularies.
